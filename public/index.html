@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 SAP PO Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="light-mode">
+
+    <!-- 🔐 LOGIN SCREEN -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-box">
+            <div class="sap-logo">🔷 SAP</div>
+            <h2>PO Dashboard</h2>
+            <form id="loginForm">
+                <input type="text" id="username" placeholder="Username" value="demo" required>
+                <input type="password" id="password" placeholder="Password" value="demo123" required>
+                <input type="text" id="client" placeholder="Client" value="100" required>
+                <button type="submit" id="loginBtn">🚀 Log On</button>
+                <p id="loginError" class="error-msg"></p>
+            </form>
+            <p class="demo-hint">💡 Demo: demo / demo123</p>
+        </div>
+    </div>
+
+    <!-- 📊 MAIN DASHBOARD -->
+    <div id="mainApp" class="main-app" style="display:none;">
+        
+        <!-- Top Bar -->
+        <header class="top-bar">
+            <div class="logo">📊 SAP PO Dashboard</div>
+            <div class="actions">
+                <button onclick="toggleTheme()" class="btn-icon" title="Toggle Theme">🌙</button>
+                <button onclick="exportData()" class="btn-icon" title="Export Excel">📥</button>
+                <span id="userInfo">👤 demo</span>
+                <button onclick="logout()" class="btn-logout">🚪</button>
+            </div>
+        </header>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card approved">
+                <div class="stat-icon">✅</div>
+                <div class="stat-info">
+                    <h3 id="statApproved">0</h3>
+                    <p>Approved POs</p>
+                </div>
+            </div>
+            <div class="stat-card pending">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-info">
+                    <h3 id="statPending">0</h3>
+                    <p>Pending POs</p>
+                </div>
+            </div>
+            <div class="stat-card rejected">
+                <div class="stat-icon">❌</div>
+                <div class="stat-info">
+                    <h3 id="statRejected">0</h3>
+                    <p>Rejected POs</p>
+                </div>
+            </div>
+            <div class="stat-card total">
+                <div class="stat-icon">💰</div>
+                <div class="stat-info">
+                    <h3 id="statTotal">€0</h3>
+                    <p>Total Value</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search & Filter -->
+        <div class="search-section">
+            <input type="text" id="poInput" placeholder="Search PO Number..." value="4500001234">
+            <button onclick="loadPO()" class="btn-primary">🔍 Search</button>
+            <button onclick="loadAllPOs()" class="btn-secondary">📋 All POs</button>
+        </div>
+
+        <!-- Status Bar -->
+        <div id="status" class="status-bar">Ready</div>
+
+        <!-- PO Details -->
+        <div id="poDetails" class="po-details" style="display:none;">
+            <div class="card header-card">
+                <div class="card-header">
+                    <h3>📋 Purchase Order: <span id="poNumber"></span></h3>
+                    <span id="poStatus" class="status-badge"></span>
+                </div>
+                <div class="card-grid">
+                    <div><strong>Vendor:</strong> <span id="poVendor"></span></div>
+                    <div><strong>Date:</strong> <span id="poDate"></span></div>
+                    <div><strong>Currency:</strong> <span id="poCurrency"></span></div>
+                    <div><strong>Total:</strong> <span id="poTotal" class="total-value"></span></div>
+                </div>
+                <div class="card-actions">
+                    <button onclick="actionPO('Approve')" class="btn-approve">✓ Approve</button>
+                    <button onclick="actionPO('Reject')" class="btn-reject">✗ Reject</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📦 Items</h3>
+                <table id="itemsTable">
+                    <thead>
+                        <tr><th>Item</th><th>Material</th><th>Description</th><th>Qty</th><th>Price</th><th>Amount</th></tr>
+                    </thead>
+                    <tbody id="itemsBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Notification Toast -->
+        <div id="toast" class="toast"></div>
+    </div>
+
+    <script src="login.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
