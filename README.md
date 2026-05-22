@@ -53,6 +53,7 @@ It demonstrates how Purchase Orders (POs) can be viewed, searched, and managed t
 ---
 
 ## How to Run
+In Terminal: get-node.js
 
 1. Clone the repository:
 
